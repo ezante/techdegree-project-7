@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TodoRequest;
 use App\Http\Resources\TodoResource;
 use App\Models\Todo;
-use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
@@ -21,12 +21,12 @@ class TodoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\TodoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TodoRequest $request)
     {
-        return new TodoResource(Todo::create($request->all()));
+        return new TodoResource(Todo::create($request->validated()));
     }
 
     /**
@@ -43,13 +43,13 @@ class TodoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\TodoRequest  $request
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Todo $todo)
+    public function update(TodoRequest $request, Todo $todo)
     {
-        $todo->update($request->all());
+        $todo->update($request->validated());
 
         return new TodoResource($todo);
     }
