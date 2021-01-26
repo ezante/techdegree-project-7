@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TodoResource;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return Todo::all();
+        return TodoResource::collection(Todo::all());
     }
 
     /**
@@ -25,7 +26,7 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        return Todo::create($request->all());
+        return new TodoResource(Todo::create($request->all()));
     }
 
     /**
@@ -36,7 +37,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        return $todo;
+        return new TodoResource($todo);
     }
 
     /**
@@ -50,7 +51,7 @@ class TodoController extends Controller
     {
         $todo->update($request->all());
 
-        return $todo;
+        return new TodoResource($todo);
     }
 
     /**
