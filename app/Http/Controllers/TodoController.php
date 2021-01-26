@@ -25,7 +25,7 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Todo::create($request->all());
     }
 
     /**
